@@ -1,2 +1,1 @@
 Ahoj GitHube
-druhy radek
