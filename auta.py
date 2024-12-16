@@ -14,7 +14,7 @@ class Auto:
 a1=Auto("Skoda","Octavia",2.5,130)
 a2=Auto("Skoda","Octavia",2.5,130)
 
-if a1==a2:
+if a1 == a2:
     print("stejné")
 else:
     print("jine")
