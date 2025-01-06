@@ -19,7 +19,7 @@ odmocnina(n)
 """
 
 #spojovaci seznam 
-
+"""
 class PrvekSeznamu:
     def __init__(self, cislo, dalsi):
         self.cislo=cislo
@@ -49,6 +49,9 @@ class SpojovySeznam:
     
 
     def pop_last(self):
+    """
+
+
     
     
  
