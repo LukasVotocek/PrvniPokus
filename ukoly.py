@@ -109,28 +109,3 @@ class Ordinace:
         self.pacienti.append(pacient)
 
 lekar1 = Lekar("Karel Vins", Specializace.KARDIOLOG)
-
-# Vytvoření příkladů pacientů
-pacient1 = Pacient(1234567890, "Jan Novák", False, "Normal")
-pacient2 = Pacient(2345678901, "Alena Svobodová", True, "Hypochondr")
-pacient3 = Pacient(3456789012, "Pavel Horák", False, "Rambo")
-
-# Vytvoření ordinací
-ordinace1 = Ordinace("kardiolog", lekar1)
-ordinace1.pridej_pacienta(pacient1)
-ordinace1.pridej_pacienta(pacient3)
-
-ordinace2 = Ordinace("neurolog", Lekar("Eva Novotná", "neurolog"))
-ordinace2.pridej_pacienta(pacient2)
-
-# Vytvoření nemocnice a přidání ordinací
-nemocnice = Nemocnice()
-nemocnice.pridej_ordinaci(ordinace1)
-nemocnice.pridej_ordinaci(ordinace2)
-
-# Výpis dat nemocnice
-for ordinace in nemocnice.ordinace:
-    print(f"Ordinace: {ordinace.specializace}, Hlavní lékař: {ordinace.hlavni_lekar.jmeno}")
-    for pacient in ordinace.pacienti:
-        print(f"  Pacient: {pacient.jmeno}, Typ: {pacient.typ}, Pohlaví: {'Žena' if pacient.pohlavi else 'Ne-žena'}")
-
