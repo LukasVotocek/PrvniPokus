@@ -138,18 +138,37 @@ class Specializace(Enum):
     CHIRURGIE = 3
     ORL = 4
 
+class Zkusenost(Enum):
+    NOVACEK=0
+    NORMAL=1
+    SUPERMAN=2
 
 @dataclass
 class Lekar:
     jmeno_prijmeni: str
     specializace: Specializace
+    zkusenost: Zkusenost
 
-@dataclass
+
 class Ordinace:
-    specializace: Specializace
+    """specializace: Specializace
     hlavni_lekar: Lekar
     pomocny_lekar: Lekar
     pacienti: list[Pacient]
+    kapacita: int"""
+
+    def __init__(self, nazev:str, specializace:Specializace, hlavni_lekar:Lekar, pomocny_lekar:Lekar, pacienti:list[Pacient], kapacita:int):
+        self.nazev = nazev
+        self.specializace = specializace
+        self.hlavni_lekar = hlavni_lekar
+        self.pomocny_lekar = pomocny_lekar
+        self.pacienti = pacienti
+        self.kapacita = kapacita
+
+    def pridej_pacienta(self, pacienti):
+        if self.kapacita <= len(self.pacienti): raise Exception ("Plna ordinace")
+        self.pacienti.append(Pacient)
+
 
 
 @dataclass
@@ -167,8 +186,8 @@ def generuj_nemocnici(tisk: bool, pocet_ordinaci) -> Nemocnice:
         pohlavi_zena = choice([True, False])
         return Pacient(rodne_cislo, jmeno_prijmeni, vek, typ, pohlavi_zena)
 
-    def generate_lekar(jmeno_prijmeni, specializace):
-        return Lekar(jmeno_prijmeni, specializace)
+    def generate_lekar(jmeno_prijmeni, specializace, zkusenost):
+        return Lekar(jmeno_prijmeni, specializace, zkusenost)
 
     # Generate shared patients
     shared_pacienti = [
@@ -178,23 +197,27 @@ def generuj_nemocnici(tisk: bool, pocet_ordinaci) -> Nemocnice:
     # Generate ordinace and nemocnice
     ordinace_list = []
     specializace_list = list(Specializace)
+    zkusenost_list =list(Zkusenost)
 
     for i in range(pocet_ordinaci):
         specializace = specializace_list[i % len(specializace_list)]
-        hlavni_lekar = generate_lekar(f"Hlavni Lekar {i}", specializace)
-        pomocny_lekar = generate_lekar(f"Pomocny Lekar {i}", choice(list(Specializace))) if i % 2 == 0 else None
+        zkusenost = zkusenost_list[i%len(zkusenost_list)]
+        hlavni_lekar = generate_lekar(f"Hlavni Lekar {i} a je {i}", specializace,zkusenost)
+        pomocny_lekar = generate_lekar(f"Pomocny Lekar {i} a je {i}", choice(list(Specializace)), choice(list(Zkusenost))) if i % 2 == 0 else None
 
         pacienti = shared_pacienti + [
             generate_pacient(f"{100000+i}{j}", f"Pacient {i}-{j}") for j in range(7)
         ]
         pacienti = sample(pacienti, len(pacienti))  # Shuffle patients
+        kapacita = randint(20,30)
 
         ordinace_list.append(
             Ordinace(
                 specializace=specializace,
                 hlavni_lekar=hlavni_lekar,
                 pomocny_lekar=pomocny_lekar,
-                pacienti=pacienti
+                pacienti=pacienti,
+                kapacita=kapacita
             )
         )
 
@@ -210,10 +233,13 @@ def generuj_nemocnici(tisk: bool, pocet_ordinaci) -> Nemocnice:
             print("  Pacienti:")
             for pacient in ord.pacienti:
                 print(f"    {pacient}")
+            print(f"Kapacita: {ord.kapacita}")
             print()
     return nemocnice
 
 nemocnice = generuj_nemocnici(True, 4)
+
+
 
 """
 *Pacient*
