@@ -70,7 +70,7 @@ printer.print_all()"""
 
 
     
-
+"""
 class Op(Enum):
     PLUS = "+"
     MINUS = "-"
@@ -147,4 +147,49 @@ lst=bfs(uzel_plus)
 for i in lst:
     print (i)
 
-print(uzel_plus.eval())
+print(uzel_plus.eval())"""
+
+
+
+"""class Historie:
+    def __init__(self):
+        self.zasobnik=deque()
+
+    def open_page(self,url):
+        self.zasobnik.append(url)
+
+    def go_back(self):
+        self.zasobnik.pop()
+
+"""
+
+class Prohlizeni:
+    def __init__(self)->None:
+        self.historie:deque=deque()
+        self.budoucnost:deque=deque()
+        self.aktualni=""
+
+    def open_page(self,url):
+        self.historie.append(self.aktualni)
+        self.aktualni=url
+
+    def go_back(self):
+        self.budoucnost.append(self.aktualni)
+        self.aktualni=self.historie.pop()
+        print(self.aktualni)
+
+    def go_forward(self):
+        self.historie.append(self.aktualni)
+        self.aktualni=self.budoucnost.pop()
+        print(self.aktualni)
+
+a=Prohlizeni()
+a.open_page("wikipedie")
+a.open_page("wiki")
+a.open_page("google")
+a.open_page("arcig")
+a.go_back()
+a.go_back()
+a.go_back()
+a.go_forward()
+a.go_forward()
