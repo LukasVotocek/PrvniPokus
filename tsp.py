@@ -24,7 +24,7 @@ def vyzkousej_cesty(graph, nazev_startovniho_mesta,dosud_projita_cesta):
             continue
         cesta_do_souseda=Cesta(dosud_projita_cesta.mesta+[soused],dosud_projita_cesta.delka+vzdalenost)
         if len(cesta_do_souseda.mesta)==graph.kolik_mest():
-            if
+            if graph.existuje_cesta(soused,cesta_do_souseda.mesta[0]):
         vyzkousej_cesty(graph,soused,cesta_do_souseda)
 
 
