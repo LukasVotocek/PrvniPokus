@@ -21,6 +21,8 @@ class Graph:
     def kolik_mest(self):
         return len(self.cities)
 
+    def existuje_cesta(self, z_mesta, do_mesta):
+        
 
 @dataclass
 class Mesto:
@@ -58,9 +60,6 @@ def vyzkousej_cesty(graph, dosud_projita_cesta):
 
 def load_europe() -> Graph:
     graph = Graph()
-    graph.new_edge("Lisbon", "Madrid", 339)
-    graph.new_edge("Naples", "Rome", 134)
-    graph.new_edge("Hamburg", "Copenhagen", 180)
     graph.new_edge("Hamburg", "Berlin", 182)
     graph.new_edge("Berlin", "Warsaw", 345)
     graph.new_edge("Amsterdam", "Hamburg", 338)
