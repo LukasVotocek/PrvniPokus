@@ -1,4 +1,4 @@
-
+"""
 def encrypt_letter(letter, shift):
     if letter.isalpha():
         base=ord('A') if letter.isupper() else ord('a')
@@ -14,12 +14,15 @@ def encrypt_message(message, shift):
         else:
             vysledek += encrypt_letter(letter,shift)
     return vysledek               
-
+"""
 
 """print(encrypt_letter("A",3))
 print(encrypt_letter("Z",6))
 print(encrypt_message("Ahoj jak se mas",4))"""
 
+
+
+"""
 message = "To claim the hidden 1 million CZK, start by locating the old oak tree near the abandoned railway station. From there, walk exactly 147 steps north until you reach a small stone marked with a red \"X\". Beneath the stone, you will find a metal box containing further instructions. Follow them carefully — only those who pay close attention to every detail will reach the final reward."
 #print(encrypt_message(message,3))
 
@@ -38,17 +41,18 @@ def decrypt_message(message,shift):
         else:
             vysledek += decrypt_letter(letter,shift)
     return vysledek  
-
-encoded_text = """
-Kyv grky kf kyv yzuuve 125 fletvj fw xfcu svxzej rk kyv efikyvie xrkv fw kyv fcu tvdvkvip. Giftvvu vrjknriu rcfex kyv tirtbvu jkfev nrcc wfi rggifozdrkvcp 150 dvkvij, lekzc pfl uzjtfmvi r xrkv tfmvivu ze zmp. Svyzeu zk, slizvu yrcw r dvkvi uvvg svevrky kyv kyziu xirmvjkfev fe kyv cvwk, czvj r jvrcvu vemvcfgv. Zejzuv, pfl nzcc wzeu kyv wzerc tclv evvuvu kf lecftb pfli gizqv. Jkrp jyrig — efk vmvipkyzex zj rj zk jvvdj.
 """
+
+#encoded_text = """
+#Kyv grky kf kyv yzuuve 125 fletvj fw xfcu svxzej rk kyv efikyvie xrkv fw kyv fcu tvdvkvip. Giftvvu vrjknriu rcfex kyv tirtbvu jkfev nrcc wfi rggifozdrkvcp 150 dvkvij, lekzc pfl uzjtfmvi r xrkv tfmvivu ze zmp. Svyzeu zk, slizvu yrcw r dvkvi uvvg svevrky kyv kyziu xirmvjkfev fe kyv cvwk, czvj r jvrcvu vemvcfgv. Zejzuv, pfl nzcc wzeu kyv wzerc tclv evvuvu kf lecftb pfli gizqv. Jkrp jyrig — efk vmvipkyzex zj rj zk jvvdj.
+#"""
 
 
 """
 for i in range(26):
     print(decrypt_message(encoded_text,i))
     print(i)"""
-
+"""
 def encrypt_with_key(text,key):
     result=""
     key_indices=[ord(k.lower()) - ord('a') for k in key]
@@ -62,4 +66,41 @@ def encrypt_with_key(text,key):
             result += char
     return result
 
-print(encrypt_with_key("ahoj jak se mas", "prezident"))
+print(encrypt_with_key("ahoj jak se mas", "prezident"))"""
+
+
+klic=b"arcibiskupskegymnazium"
+
+pdf_soubor=open("hod-25-sifra.pdf","rb")
+
+obsah=pdf_soubor.read()
+
+sifrovany_obsah=bytearray()
+
+idx=0
+delka_klice=len(klic)
+for b in obsah:
+    sb=(b+klic[idx%delka_klice])%256
+    sifrovany_obsah.append(sb)
+    idx+=1
+
+sifrovany_soubor=open("hod-25-zasifrovany2.bin","wb")
+sifrovany_soubor.write(sifrovany_obsah)
+
+pdf_soubor.close()
+sifrovany_soubor.close()
+
+
+
+"""
+zasifr_soubor=open("hod-25-zasifrovany.bin","rb")
+desifrovany_obsah=bytearray()
+
+for b in sifrovany_obsah:
+    x=(b-7)%256
+    desifrovany_obsah.append(x)
+desifrovany_soubor=open("hod-25-desifrovany.bin","wb")
+desifrovany_soubor.write(desifrovany_obsah)
+
+desifrovany_soubor.close()
+"""
